@@ -5,26 +5,42 @@ set -euo pipefail
 MAA_DIR="$HOME/.maa"
 OCR_DIR="$MAA_DIR/resouce/ocr" # Using "resouce" as requested
 TMP_DIR="/tmp/maa-installer"
+MAA_ZIP="$TMP_DIR/maa.zip"
+MAA_ZIP_TMP="$TMP_DIR/maa.zip.part"
+OCR_ZIP="$TMP_DIR/ocr.zip"
+OCR_ZIP_TMP="$TMP_DIR/ocr.zip.part"
 
 # Create directories
 mkdir -p "$MAA_DIR"
 mkdir -p "$OCR_DIR"
 mkdir -p "$TMP_DIR"
 
-echo "1. Downloading MAAFramework v5.10.1..."
-curl -L "https://github.com/MaaXYZ/MaaFramework/releases/download/v5.10.1/MAA-macos-aarch64-v5.10.1.zip" -o "$TMP_DIR/maa.zip"
+if [[ -f "$MAA_ZIP" ]]; then
+  echo "1. MAAFramework zip already exists, skipping download..."
+else
+  echo "1. Downloading MAAFramework v5.10.1..."
+  rm -f "$MAA_ZIP_TMP"
+  curl -L "https://github.com/MaaXYZ/MaaFramework/releases/download/v5.10.1/MAA-macos-aarch64-v5.10.1.zip" -o "$MAA_ZIP_TMP"
+  mv "$MAA_ZIP_TMP" "$MAA_ZIP"
+fi
 
 echo "2. Extracting MAAFramework to $MAA_DIR..."
-unzip -o "$TMP_DIR/maa.zip" -d "$MAA_DIR"
+unzip -o "$MAA_ZIP" -d "$MAA_DIR"
 
 echo "3. Removing macOS quarantine attribute..."
 sudo xattr -dr com.apple.quarantine "$MAA_DIR"
 
-echo "4. Downloading OCR resources..."
-curl -L "https://github.com/a690700752/MAA-installer/raw/refs/heads/master/ppocr_v5-zh_cn.zip" -o "$TMP_DIR/ocr.zip"
+if [[ -f "$OCR_ZIP" ]]; then
+  echo "4. OCR zip already exists, skipping download..."
+else
+  echo "4. Downloading OCR resources..."
+  rm -f "$OCR_ZIP_TMP"
+  curl -L "https://github.com/a690700752/MAA-installer/raw/refs/heads/master/ppocr_v5-zh_cn.zip" -o "$OCR_ZIP_TMP"
+  mv "$OCR_ZIP_TMP" "$OCR_ZIP"
+fi
 
 echo "5. Extracting OCR resources to $OCR_DIR..."
-unzip -o "$TMP_DIR/ocr.zip" -d "$OCR_DIR"
+unzip -o "$OCR_ZIP" -d "$OCR_DIR"
 
 echo "6. Installing mpelb..."
 curl -fsSL https://raw.githubusercontent.com/kqcoxn/MaaPipelineEditor/main/tools/install.sh | bash
