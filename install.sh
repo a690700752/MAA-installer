@@ -45,6 +45,8 @@ unzip -o "$OCR_ZIP" -d "$OCR_DIR"
 echo "6. Installing mpelb..."
 curl -fsSL https://raw.githubusercontent.com/kqcoxn/MaaPipelineEditor/main/tools/install.sh | bash
 
+sudo xattr -dr com.apple.quarantine "$HOME/.local/bin/mpelb"
+
 # Ensure mpelb is in PATH for the current session if it was just installed
 export PATH="$HOME/.local/bin:$PATH"
 
