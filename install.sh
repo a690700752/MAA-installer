@@ -43,14 +43,10 @@ echo "5. Extracting OCR resources to $OCR_DIR..."
 unzip -o "$OCR_ZIP" -d "$OCR_DIR"
 
 echo "6. Installing mpelb..."
-if command -v mpelb >/dev/null 2>&1 || [[ -e "$HOME/.local/bin/mpelb" ]]; then
+if [[ -e "$HOME/.local/bin/mpelb" ]]; then
   echo "mpelb already exists, skipping download..."
 else
   curl -fsSL https://raw.githubusercontent.com/kqcoxn/MaaPipelineEditor/main/tools/install.sh | bash
-fi
-
-if [[ -e "$HOME/.local/bin/mpelb" ]]; then
-  sudo xattr -dr com.apple.quarantine "$HOME/.local/bin/mpelb"
 fi
 
 # Ensure mpelb is in PATH for the current session if it was just installed
