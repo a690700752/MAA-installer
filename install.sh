@@ -58,6 +58,3 @@ echo "------------------------------------------------"
 echo "安装完成！"
 echo "在maa项目下执行 mpelb 启动编辑器"
 echo "执行 uvx MaaDebugger 启动运行器(如果 MaaDebugger 启动报错，使用 all_proxy= uvx --python 3.13 MaaDebugger 试试)。"
-
-# Cleanup
-rm -rf "$TMP_DIR"
