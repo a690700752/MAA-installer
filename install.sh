@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Define paths
 MAA_DIR="$HOME/.maa"
