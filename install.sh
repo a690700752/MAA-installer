@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Define paths
 MAA_DIR="$HOME/.maa"
-OCR_DIR="$MAA_DIR/resouce/ocr" # Using "resouce" as requested
+OCR_DIR="$MAA_DIR/resouce/model/ocr" # Using "resouce" as requested
 TMP_DIR="/tmp/maa-installer"
 MAA_ZIP="$TMP_DIR/maa.zip"
 MAA_ZIP_TMP="$TMP_DIR/maa.zip.part"
